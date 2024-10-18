@@ -6,23 +6,13 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    bool isDetect(int src, vector<vector<int>>&adj, int vis[]){
+    bool isDetect(int src, vector<vector<int>>&adj, int vis[], int parent){
         vis[src] = 1;
-        queue<pair<int,int>>q;
-        q.push({src, -1});
-        while(!q.empty()){
-            int node = q.front().first;
-            int parent = q.front().second;
-            q.pop();
-            for(auto it : adj[node]){
-                if(!vis[it]){
-                    vis[it] = 1;
-                    q.push({it, node});
-                }
-                else if(parent != it){
-                    return true;
-                }
+        for(auto it : adj[src]){
+            if(!vis[it]){
+                if(isDetect(it, adj, vis, src)) return true;
             }
+            else if(it != parent) return true;
         }
         return false;
     }
@@ -33,7 +23,7 @@ class Solution {
         int vis[n] = {0};
         for(int i = 0; i < n; i++){
             if(!vis[i]){
-                if(isDetect(i, adj, vis)) return true;
+                if(isDetect(i, adj, vis, -1)) return true;
             }
         }
         return false;
