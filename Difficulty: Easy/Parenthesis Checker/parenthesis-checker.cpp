@@ -1,57 +1,51 @@
 //{ Driver Code Starts
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 
 // } Driver Code Ends
 
-class Solution
-{
-    public:
-    //Function to check if brackets are balanced or not.
-    bool ispar(string x)
-    {
-        // Your code here
+class Solution {
+  public:
+    bool isBalanced(string& s) {
+        // code here
         stack<char>st;
-        for(int i = 0; i < x.length(); i++){
-            if(x[i] == '(' || x[i] == '[' || x[i] == '{'){
-                st.push(x[i]);
+        for(char ch : s){
+            if(st.empty()){
+                if(ch == ']' || ch == '}' || ch == ')') return false;
+                else{
+                    st.push(ch);
+                }
             }
-            if(x[i] == ')' || x[i] == ']' || x[i] == '}'){
-                if(st.empty()){
-                    return false;
+            else{
+                if((st.top() == '(' && ch == ')') || (st.top() == '{' && ch == '}') || (st.top() == '[' && ch == ']')){
+                    st.pop();
                 }
                 else{
-                    if((st.top() == '(' and x[i] == ')') || (st.top() == '[' and x[i] == ']') || (st.top() == '{' and x[i] == '}')){
-                        st.pop();
-                    }
-                    else{
-                        return false;
-                    }
+                    st.push(ch);
                 }
             }
         }
-        if(st.empty()) return true;
-        else return false;
+        return st.empty();
     }
-
 };
 
 //{ Driver Code Starts.
 
-int main()
-{
-   int t;
-   string a;
-   cin>>t;
-   while(t--)
-   {
-       cin>>a;
-       Solution obj;
-       if(obj.ispar(a))
-        cout<<"balanced"<<endl;
-       else
-        cout<<"not balanced"<<endl;
-   }
+int main() {
+    int t;
+    string a;
+    cin >> t;
+    while (t--) {
+        cin >> a;
+        Solution obj;
+        if (obj.isBalanced(a))
+            cout << "true" << endl;
+        else
+            cout << "false" << endl;
+
+        cout << "~"
+             << "\n";
+    }
 }
 // } Driver Code Ends
