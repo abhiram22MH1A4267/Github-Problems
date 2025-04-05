@@ -2,20 +2,21 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
 // } Driver Code Ends
+
 class Solution {
   public:
-    // Function to find the number of islands.
-    int numIslands(vector<vector<char>>& grid) {
+    int countIslands(vector<vector<char>>& grid) {
         // Code here
         int n = grid.size(), m = grid[0].size(), islands = 0;
         vector<int>dir = {-1, 0, 1};
         auto dfs = [&](int i, int j, auto&& dfs) ->void {
-            grid[i][j] = '0';
+            grid[i][j] = 'W';
             for(int x : dir) for(int y : dir) {
                 if(x || y) {
                     int ni = i+x, nj = j+y;
-                    if(ni >= 0 && nj >= 0 && ni < n && nj < m && grid[ni][nj] == '1'){
+                    if(ni >= 0 && nj >= 0 && ni < n && nj < m && grid[ni][nj] == 'L'){
                         dfs(ni, nj, dfs);
                     }
                 }
@@ -24,7 +25,7 @@ class Solution {
         
         for(int i = 0; i < n; ++i){
             for(int j = 0; j < m; ++j){
-                if(grid[i][j] == '1'){
+                if(grid[i][j] == 'L'){
                     islands++;
                     dfs(i,j,dfs);
                 }
@@ -34,6 +35,7 @@ class Solution {
         return islands;
     }
 };
+
 
 //{ Driver Code Starts.
 int main() {
@@ -49,8 +51,11 @@ int main() {
             }
         }
         Solution obj;
-        int ans = obj.numIslands(grid);
+        int ans = obj.countIslands(grid);
         cout << ans << '\n';
+
+        cout << "~"
+             << "\n";
     }
     return 0;
 }
