@@ -9,11 +9,11 @@ void getprimes(vector<int>&primes){
         }
     }
 }
+
 int nextPrime(int n) {
 
     // code here to find next prime number
     // return next prime number
-    
     vector<int>primes(501, 1);
     getprimes(primes);
     
